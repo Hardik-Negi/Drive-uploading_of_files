@@ -6,7 +6,8 @@ const serviceAccount=require('../chat-9a09b-firebase-adminsdk-y7v8o-52b100dbce.j
 
 const storage=firebaseStorage({
 credentials: firebase.credential.cert(serviceAccount),
-bucketName:'chat-9a09b.appspot.com'
+bucketName:'chat-9a09b.appspot.com',
+unique:true,
 })
 
 const upload=multer({
