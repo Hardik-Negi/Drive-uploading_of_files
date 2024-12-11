@@ -1,5 +1,6 @@
 const express=require("express");
 const authMiddleware=require('../middlewares/authe')
+const firebase=require('../config/firebase.config')
 
 const router=express.Router();
 const upload=require('../config/multer.config')
@@ -43,6 +44,16 @@ router.get('/download/:path',authMiddleware,async(req,res)=>{
          message:'Unauthorized'
       })
    }
+  
+
+const signedUrl=await firebase.storage().bucket().file(path).getSignedUrl({
+   action:'read',
+   expires:Date.now() +60*1000
+})
+
+res.redirect(signedUrl[0])
+
+
 })
 
 module.exports = router;
